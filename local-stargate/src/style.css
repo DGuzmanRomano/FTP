@@ -1,0 +1,115 @@
+/* --- Basic Setup & Google Font --- */
+:root {
+  --font-family: 'Poppins', sans-serif;
+  --bg-color: #1a1a2e;
+  --portal-bg: #16213e;
+  --portal-border: #0f3460;
+  --portal-glow: #e94560;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.container h1 {
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+/* --- Stargate Drop Zone Styling --- */
+#drop-zone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 250px;
+  margin: 30px auto;
+  background-color: var(--portal-bg);
+  border: 4px solid var(--portal-border);
+  border-radius: 50%; /* This makes it a circle! */
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0,0,0,0.4);
+}
+
+.stargate-content {
+  color: var(--text-secondary);
+  z-index: 2;
+}
+
+/* Subtle background animation for the portal */
+#drop-zone::before {
+  content: '';
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  background: conic-gradient(
+    from 0deg,
+    #0f3460, #16213e, #0f3460, #1a1a2e, #0f3460
+  );
+  animation: spin 20s linear infinite;
+  opacity: 0.4;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+/* --- State Changes Styling --- */
+
+/* This is the "Powered Up" state when dragging a file over */
+#drop-zone.drag-over {
+  border-color: var(--portal-glow);
+  box-shadow: 0 0 25px var(--portal-glow), inset 0 0 20px rgba(233, 69, 96, 0.3);
+}
+
+#drop-zone.drag-over::before {
+  animation-duration: 5s; /* Speed up the animation */
+  opacity: 0.8;
+}
+
+/* --- Icon and Spinner Styling --- */
+.icon-processing {
+  display: none; /* Hidden by default */
+}
+
+.spinner {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 6px solid #ffffff20;
+  border-top-color: var(--portal-glow);
+  animation: spin 1s linear infinite;
+  margin: 4px auto 18px auto; /* Centering the spinner */
+}
+
+/* We will control these classes with JavaScript later */
+#drop-zone.is-processing .icon-default,
+#drop-zone.is-processing #drop-zone-text {
+  display: none;
+}
+
+#drop-zone.is-processing .icon-processing {
+  display: block;
+}
+
+#status {
+  margin-top: 20px;
+  font-size: 0.9em;
+  color: var(--text-secondary);
+  min-height: 20px;
+}
