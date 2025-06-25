@@ -4,10 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Local Stargate</title>
+    <!-- We are adding a custom font from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     
+    <!-- The CSS is imported in main.ts, so no <link> tag is needed here -->
     <script type="module" src="/src/main.ts" defer></script>
   </head>
 
@@ -15,24 +17,40 @@
     <div class="container">
       <h1>Local Stargate</h1>
       
-      <!-- NEW: IP Address Input Field -->
       <div class="ip-container">
         <label for="ip-input">Target IP Address:</label>
         <input type="text" id="ip-input" placeholder="e.g., 192.168.1.10">
       </div>
 
+      <!-- The portal is now also a button -->
       <div id="drop-zone">
         <div class="stargate-content">
+          <!-- Default state icon -->
           <div class="icon-default">
             <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+            <p>Click or Drop File</p>
           </div>
+
+          <!-- File selected state -->
+          <div class="file-info">
+            <p>Ready to send:</p>
+            <code id="file-name-display"></code>
+          </div>
+          
+          <!-- Processing state spinner -->
           <div class="icon-processing">
             <div class="spinner"></div>
+            <p>Transferring...</p>
           </div>
-          <p id="drop-zone-text">Drag & Drop Files</p>
+
         </div>
       </div>
       
+      <!-- The Send button will appear here when a file is selected -->
+      <div id="send-button-container">
+        <button id="send-btn">Send File</button>
+      </div>
+
       <p id="status"></p>
     </div>
   </body>

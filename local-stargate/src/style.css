@@ -26,6 +26,30 @@ body {
   letter-spacing: 1px;
 }
 
+/* --- IP Input --- */
+.ip-container {
+  margin-bottom: 20px;
+}
+
+.ip-container label {
+  margin-right: 10px;
+  color: var(--text-secondary);
+}
+
+#ip-input {
+  background-color: rgba(0,0,0,0.3);
+  border: 1px solid var(--portal-border);
+  color: var(--text-primary);
+  padding: 8px;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#ip-input:focus {
+  border-color: var(--portal-glow);
+}
+
 /* --- Stargate Drop Zone Styling --- */
 #drop-zone {
   display: flex;
@@ -68,25 +92,76 @@ body {
   to { transform: rotate(360deg); }
 }
 
-
 /* --- State Changes Styling --- */
 
-/* This is the "Powered Up" state when dragging a file over */
 #drop-zone.drag-over {
   border-color: var(--portal-glow);
   box-shadow: 0 0 25px var(--portal-glow), inset 0 0 20px rgba(233, 69, 96, 0.3);
 }
 
 #drop-zone.drag-over::before {
-  animation-duration: 5s; /* Speed up the animation */
+  animation-duration: 5s;
   opacity: 0.8;
 }
 
-/* --- Icon and Spinner Styling --- */
-.icon-processing {
-  display: none; /* Hidden by default */
+/* --- New styles for click-to-select flow --- */
+
+.file-info,
+.icon-processing,
+#send-button-container {
+  display: none; /* All new states are hidden by default */
 }
 
+#file-name-display {
+  padding: 4px 8px;
+  background-color: rgba(0,0,0,0.4);
+  border-radius: 6px;
+  word-break: break-all;
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+/* Style for when a file has been selected */
+#drop-zone.file-selected .icon-default {
+  display: none;
+}
+#drop-zone.file-selected .file-info {
+  display: block;
+}
+
+/* Show the send button when a file is selected */
+#drop-zone.file-selected + #send-button-container {
+  display: block;
+  margin-top: 20px;
+}
+
+#send-btn {
+  background-color: #e94560;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 1em;
+  transition: all 0.2s;
+}
+
+#send-btn:hover {
+  background-color: #c43a51;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+#send-btn:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Style for when the file is being processed */
 .spinner {
   width: 56px;
   height: 56px;
@@ -94,12 +169,11 @@ body {
   border: 6px solid #ffffff20;
   border-top-color: var(--portal-glow);
   animation: spin 1s linear infinite;
-  margin: 4px auto 18px auto; /* Centering the spinner */
+  margin: 4px auto 18px auto;
 }
 
-/* We will control these classes with JavaScript later */
 #drop-zone.is-processing .icon-default,
-#drop-zone.is-processing #drop-zone-text {
+#drop-zone.is-processing .file-info {
   display: none;
 }
 
@@ -107,6 +181,7 @@ body {
   display: block;
 }
 
+/* --- Status message --- */
 #status {
   margin-top: 20px;
   font-size: 0.9em;
